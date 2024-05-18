@@ -3,14 +3,14 @@ from flask_socketio import SocketIO, send, emit
 import socket
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
 @app.route('/get_local_ip')
-def get_local_ip():
+def handle_ip():
     local_ip = get_local_ip()
     return jsonify({'local_ip': local_ip})
 
@@ -37,4 +37,4 @@ def get_local_ip():
     return local_ip
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5000)
+    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
