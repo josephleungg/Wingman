@@ -16,7 +16,7 @@ def record_text():
                 r.adjust_for_ambient_noise(source2, duration=0.2)
 
                 # listens for user's input
-                audio2 = r.listen(source2)
+                audio2 = r.listen(source2, timeout=5)
 
                 # uses google to recognize the audio
                 MyText = r.recognize_google(audio2)
@@ -24,30 +24,30 @@ def record_text():
                 return MyText
 
         except sr.RequestError as e:
-            print("could not request results; {0}".format(e))
+            raise Exception("Could not request results; {0}".format(e))
         
         except sr.UnknownValueError:
-            print("unknown error occured")
+            raise Exception("unknown error occurred")
 
     return
 
-def output_text(text):
-    f = open("output.txt", "a")
-    f.write(text + "\n")
-    f.close()
+# def output_text(text):
+#     f = open("output.txt", "a")
+#     f.write(text + "\n")
+#     f.close()
 
-    return
+#     return
 
-while(True):
-    text = record_text()
+# while(True):
+#     text = record_text()
 
-    # testing if it is recognizing the text or voice prompt
-    if(text.lower() == "hello wingman"):
-        print("Wingman: " + text)
-        message = record_text()
-        print("User: " + message)
-    elif(text):
-        print(text)
-        print("text is working")
+#     # testing if it is recognizing the text or voice prompt
+    # if(text.lower() == "hello wingman"):
+    #     print("Wingman: " + text)
+    #     message = record_text()
+    #     print("User: " + message)
+    # elif(text):
+    #     print(text)
+    #     print("text is working")
 
     # output_text(text)
