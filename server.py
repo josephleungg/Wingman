@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template
 from flask_socketio import SocketIO, send, emit
 import socket
+import os
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -23,6 +24,7 @@ def handle_connect():
 def handle_message(msg):
     print('Received message: ' + msg)
     send(msg, broadcast=True)
+    os.system(f"espeak '{msg}'")
 
 def get_local_ip():
     try:
